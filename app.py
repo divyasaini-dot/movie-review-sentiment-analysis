@@ -4,9 +4,13 @@ import joblib
 from preprocess import preprocess_text
 
 # Load model and vectorizer
-model = joblib.load("sentiment_model.pkl")
-vectorizer = joblib.load("tfidf_vectorizer.pkl")
-
+# Load model and vectorizer safely
+try:
+    model = joblib.load("sentiment_model.pkl")
+    vectorizer = joblib.load("tfidf_vectorizer.pkl")
+except Exception as e:
+    st.error(f"Error loading model or vectorizer:\n\n{e}")
+    st.stop()
 # -----------------------------
 # Page Configuration
 # -----------------------------
