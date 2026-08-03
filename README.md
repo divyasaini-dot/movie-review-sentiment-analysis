@@ -188,7 +188,7 @@ This project demonstrates:
 
 **Divya Saini**
 
-GitHub: https://github.com/divyasaini
+GitHub: https://github.com/divyasaini-dot
 
 LinkedIn: https://www.linkedin.com/in/divya-saini-76a198383/
 
