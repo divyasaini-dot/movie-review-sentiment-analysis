@@ -41,14 +41,28 @@ This application predicts the sentiment of movie reviews using:
 # -----------------------------
 # Title
 # -----------------------------
-st.title("🎬 Movie Review Sentiment Analysis")
-
 st.markdown("""
-Analyze the sentiment of a movie review using a **Machine Learning model**
-trained on the **IMDb 50K Movie Reviews Dataset**.
+<h1 style='text-align:center; color:#4CAF50;'>
+🎬 Movie Review Sentiment Analysis
+</h1>
 
-**Model Used:** Logistic Regression + TF-IDF
-""")
+<p style='text-align:center; font-size:18px;'>
+Predict whether a movie review is Positive or Negative using Machine Learning.
+</p>
+""", unsafe_allow_html=True)
+
+st.divider()
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("Accuracy", "89.4%")
+
+with col2:
+    st.metric("Dataset", "50K")
+
+with col3:
+    st.metric("Model", "Logistic Regression")
 
 st.write(
     """
@@ -61,9 +75,9 @@ st.write(
 # User Input
 # -----------------------------
 review = st.text_area(
-    "Enter Movie Review",
-    height=200,
-    placeholder="Example: This movie was absolutely fantastic!"
+    "✍️ Enter Movie Review",
+    height=180,
+    placeholder="Example:\nThis movie was amazing. The acting was outstanding..."
 )
 
 # -----------------------------
@@ -83,15 +97,17 @@ if st.button("Analyze Sentiment"):
         review_vector = vectorizer.transform([processed_review])
 
         # Prediction
-        prediction = model.predict(review_vector)[0]
+        with st.spinner("Analyzing review..."):
+
+            prediction = model.predict(review_vector)[0]
+            probability = model.predict_proba(review_vector)[0]
 
         # Probability
         probability = model.predict_proba(review_vector)[0]
 
         st.divider()
 
-        st.subheader("Prediction")
-
+        st.subheader("🎯 Prediction")
         if prediction == 1:
             st.success("😊 Positive Review")
         else:
@@ -99,17 +115,30 @@ if st.button("Analyze Sentiment"):
 
         st.subheader("Confidence")
 
-        confidence = max(probability) * 100
+        confidence=max(probability)
 
-        st.metric("Confidence", f"{confidence:.2f}%")
+        st.metric(
+            "Prediction Confidence",
+            f"{confidence*100:.2f}%"
+        )
 
-        st.progress(float(max(probability)))
-
+        st.progress(confidence)
         st.write("### Prediction Probabilities")
 
         st.write(f"😊 Positive: **{probability[1]*100:.2f}%**")
         st.write(f"😞 Negative: **{probability[0]*100:.2f}%**")
 
 st.divider()
+
+
+st.info(
+"""
+⚠ **Note**
+
+This model uses TF-IDF and Logistic Regression.
+
+It may not correctly understand sarcasm, irony or complex negations.
+"""
+)
 
 st.caption("Developed by Divya Saini")
