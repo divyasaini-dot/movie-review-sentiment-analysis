@@ -21,23 +21,19 @@ st.set_page_config(
 )
 st.sidebar.title("📌 About")
 
-st.sidebar.write("""
-### Dataset
+st.sidebar.markdown("""
+### 📚 Dataset
 IMDb 50K Movie Reviews
 
-### Model
-- Logistic Regression
-- TF-IDF Vectorization"""
-)
+### 🤖 Model
+Logistic Regression
 
-st.sidebar.info("""
-This application predicts the sentiment of movie reviews using:
+### 🔤 Feature Extraction
+TF-IDF Vectorization
 
-- TF-IDF Vectorization
-- Logistic Regression
-- IMDb 50K Movie Reviews Dataset
+### 👩‍💻 Developer
+Divya Saini
 """)
-
 # -----------------------------
 # Title
 # -----------------------------
