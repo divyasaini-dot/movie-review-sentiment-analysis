@@ -22,6 +22,10 @@ except LookupError:
 
 stop_words = set(stopwords.words("english"))
 
+negation_words = {"no", "not", "nor"}
+
+stop_words = stop_words - negation_words
+
 def preprocess_text(text):
     # Remove HTML tags
     text = re.sub(r"<.*?>", "", text)
