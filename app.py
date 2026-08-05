@@ -76,10 +76,22 @@ review = st.text_area(
     placeholder="Example:\nThis movie was amazing. The acting was outstanding..."
 )
 
+# Buttons
+col1, col2 = st.columns(2)
+
+with col1:
+    analyze = st.button("🔍 Analyze Sentiment")
+
+with col2:
+    clear = st.button("🗑️ Clear")
+
+if clear:
+    st.rerun()
+
 # -----------------------------
-# Prediction Button
+# Prediction
 # -----------------------------
-if st.button("Analyze Sentiment"):
+if analyze:
 
     if review.strip() == "":
         st.warning("Please enter a movie review.")
@@ -88,18 +100,16 @@ if st.button("Analyze Sentiment"):
 
         # Preprocess review
         processed_review = preprocess_text(review)
+        with st.expander("🔍 View Processed Review"):
+            st.write(processed_review)
 
         # TF-IDF Transformation
         review_vector = vectorizer.transform([processed_review])
 
         # Prediction
         with st.spinner("Analyzing review..."):
-
             prediction = model.predict(review_vector)[0]
             probability = model.predict_proba(review_vector)[0]
-
-        # Probability
-        probability = model.predict_proba(review_vector)[0]
 
         st.divider()
 
@@ -118,7 +128,7 @@ if st.button("Analyze Sentiment"):
             f"{confidence*100:.2f}%"
         )
 
-        st.progress(confidence)
+        st.progress(min(confidence, 1.0))
         st.write("### Prediction Probabilities")
 
         st.write(f"😊 Positive: **{probability[1]*100:.2f}%**")
@@ -137,4 +147,4 @@ It may not correctly understand sarcasm, irony or complex negations.
 """
 )
 
-st.caption("Developed by Divya Saini")
+st.caption("Developed with ❤️ by Divya Saini")
