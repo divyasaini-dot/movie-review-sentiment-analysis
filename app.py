@@ -52,8 +52,7 @@ st.divider()
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric("Accuracy", "89.4%")
-
+    st.metric("Accuracy", "91.26%")
 with col2:
     st.metric("Dataset", "50K")
 
